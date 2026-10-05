@@ -116,6 +116,12 @@ a:hover {
     color: var(--white);
 }
 
+/* Highlighted while its section is on screen (Part 1 bonus) */
+.nav-link.active {
+    background: rgba(255,255,255,0.25);
+    color: var(--white);
+}
+
 /* Mobile Menu Toggle */
 .nav-toggle {
     display: none;
@@ -279,14 +285,10 @@ a:hover {
 .skill-progress {
     height: 100%;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    width: var(--skill-level);
+    /* Starts empty; JavaScript sets the width to --skill-level when the
+       skills section scrolls into view (Part 4). */
+    width: 0;
     transition: width 1s ease;
-    animation: fillProgress 1s ease forwards;
-}
-
-@keyframes fillProgress {
-    from { width: 0; }
-    to { width: var(--skill-level); }
 }
 
 .skill-percentage {
@@ -540,6 +542,53 @@ a:hover {
 
 /* Responsive Design - Basic */
 @media (max-width: 768px) {
+    /* ===== Mobile menu (Part 3) ===== */
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: var(--white);
+        width: 100%;
+        padding: var(--spacing-sm) 0;
+        text-align: center;
+        transition: left 0.3s ease;
+        box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        display: block;
+        margin: 0;
+        padding: var(--spacing-xs) 0;
+    }
+
+    .nav-menu .nav-link {
+        color: var(--text-dark);
+    }
+
+    .nav-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    /* Hamburger turns into an X while the menu is open */
+    .nav-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
     h1 { font-size: 2rem; }
     h2 { font-size: 1.75rem; }
 
